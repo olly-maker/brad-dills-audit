@@ -1,0 +1,792 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.1">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1">&lt;title&gt;Brad &amp; Dills — Team Audit&lt;/title&gt;</p>
+<p class="p1">&lt;link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=DM+Mono:wght@300;400;500&amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p1">&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"&gt;&lt;/script&gt;</p>
+<p class="p1">&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>:root{--cream:#F5F0E8;--espresso:#2C1810;--roast:#6B3A2A;--caramel:#C4834A;--foam:#EDE8DE;--steam:#D4C9B5;--pass:#3A6B45;--warn:#B8962E;--fail:#8B2E2E;}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>*{box-sizing:border-box;margin:0;padding:0;}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>html,body{background:var(--cream);color:var(--espresso);font-family:'DM Mono',monospace;}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>body{padding:32px 20px 80px;}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.page{max-width:800px;margin:0 auto;}</p>
+<p class="p2"><br></p>
+<p class="p1">/* HEADER */</p>
+<p class="p1">.header{border-top:3px solid var(–espresso);border-bottom:1px solid var(–steam);padding:32px 0 24px;margin-bottom:24px;position:relative;}</p>
+<p class="p1">.header::before{content:‘☕’;position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:var(–cream);padding:0 12px;font-size:22px;}</p>
+<p class="p1">.header-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;}</p>
+<p class="p1">.header h1{font-family:‘Playfair Display’,serif;font-size:2rem;line-height:1.1;}</p>
+<p class="p1">.header h1 span{display:block;font-size:.8rem;font-weight:400;color:var(–roast);letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;}</p>
+<p class="p1">.score-badge{background:var(–espresso);color:var(–cream);padding:16px 24px;text-align:center;min-width:110px;flex-shrink:0;}</p>
+<p class="p1">.score-badge .num{font-family:‘Playfair Display’,serif;font-size:2.4rem;line-height:1;display:block;}</p>
+<p class="p1">.score-badge .lbl{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;opacity:.7;}</p>
+<p class="p1">.meta-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:20px;}</p>
+<p class="p1">.mf label{display:block;font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(–roast);margin-bottom:4px;}</p>
+<p class="p1">.mf input{width:100%;background:transparent;border:none;border-bottom:2px solid var(–steam);padding:6px 0;font-family:‘DM Mono’,monospace;font-size:.9rem;color:var(–espresso);outline:none;}</p>
+<p class="p1">.mf input:focus{border-bottom-color:var(–caramel);}</p>
+<p class="p2"><br></p>
+<p class="p1">/* EMAIL */</p>
+<p class="p1">.email-bar{background:var(–espresso);color:var(–cream);padding:14px 20px;display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap;}</p>
+<p class="p1">.email-bar label{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;opacity:.7;white-space:nowrap;}</p>
+<p class="p1">.email-bar input{flex:1;min-width:200px;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,.4);color:var(–cream);font-family:‘DM Mono’,monospace;font-size:.9rem;padding:5px 0;outline:none;}</p>
+<p class="p1">.email-bar input::placeholder{opacity:.4;}</p>
+<p class="p1">.email-bar input:focus{border-bottom-color:var(–caramel);}</p>
+<p class="p2"><br></p>
+<p class="p1">/* PANELS */</p>
+<p class="p1">.panel{margin-bottom:24px;overflow:hidden;}</p>
+<p class="p1">.panel-head{padding:12px 18px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none;}</p>
+<p class="p1">.panel-head h3{font-family:‘Playfair Display’,serif;font-size:1rem;font-weight:400;}</p>
+<p class="p1">.ptoggle{font-size:.7rem;letter-spacing:1px;}</p>
+<p class="p1">.panel-body{display:none;}</p>
+<p class="p1">.panel-body.open{display:block;}</p>
+<p class="p2"><br></p>
+<p class="p1">.panel.ep{border:2px solid var(–espresso);}</p>
+<p class="p1">.panel.ep .panel-head{background:var(–espresso);color:var(–cream);}</p>
+<p class="p1">.panel.ep .panel-body{background:var(–foam);padding:0;}</p>
+<p class="p2"><br></p>
+<p class="p1">.panel.sp{border:1px solid var(–steam);}</p>
+<p class="p1">.panel.sp .panel-head{background:var(–roast);color:var(–cream);}</p>
+<p class="p1">.panel.sp .panel-body{background:var(–foam);padding:16px 18px;}</p>
+<p class="p2"><br></p>
+<p class="p1">/* EDITOR TABS */</p>
+<p class="p1">.etabs{display:flex;border-bottom:1px solid var(–steam);overflow-x:auto;}</p>
+<p class="p1">.etab{padding:10px 16px;font-family:‘DM Mono’,monospace;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border:none;background:transparent;color:var(–roast);border-bottom:2px solid transparent;white-space:nowrap;margin-bottom:-1px;}</p>
+<p class="p1">.etab.on{color:var(–espresso);border-bottom-color:var(–caramel);font-weight:500;}</p>
+<p class="p1">.ebody{display:none;padding:18px;}</p>
+<p class="p1">.ebody.on{display:block;}</p>
+<p class="p2"><br></p>
+<p class="p1">.ecrow{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(–steam);flex-wrap:wrap;}</p>
+<p class="p1">.ecinfo{flex:1;min-width:0;}</p>
+<p class="p1">.ecname{font-size:.82rem;font-weight:500;}</p>
+<p class="p1">.ecdesc{font-size:.62rem;color:var(–roast);margin-top:2px;}</p>
+<p class="p1">.ecpts{font-size:.68rem;color:var(–roast);flex-shrink:0;}</p>
+<p class="p1">.ecbtn{padding:4px 10px;font-family:‘DM Mono’,monospace;font-size:.58rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;background:transparent;flex-shrink:0;}</p>
+<p class="p1">.ecbtn.edit{border:1px solid var(–espresso);color:var(–espresso);}</p>
+<p class="p1">.ecbtn.rem{border:1px solid var(–fail);color:var(–fail);}</p>
+<p class="p2"><br></p>
+<p class="p1">.addform{margin-top:12px;padding:14px;background:var(–cream);border:1px dashed var(–steam);}</p>
+<p class="p1">.addform-title{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(–roast);margin-bottom:10px;}</p>
+<p class="p1">.addform input,.addform select,.addform textarea{width:100%;background:#fff;border:1px solid var(–steam);padding:7px 10px;font-family:‘DM Mono’,monospace;font-size:.78rem;color:var(–espresso);outline:none;resize:none;margin-bottom:8px;}</p>
+<p class="p1">.addform input:focus,.addform select:focus,.addform textarea:focus{border-color:var(–caramel);}</p>
+<p class="p1">.row2{display:grid;grid-template-columns:1fr 120px;gap:8px;}</p>
+<p class="p1">.abtn{padding:8px 18px;font-family:‘DM Mono’,monospace;font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border:none;}</p>
+<p class="p1">.abtn.ok{background:var(–espresso);color:var(–cream);}</p>
+<p class="p1">.abtn.danger{background:transparent;color:var(–fail);border:1px solid var(–fail);}</p>
+<p class="p2"><br></p>
+<p class="p1">.secstrip{display:flex;gap:8px;align-items:flex-end;margin-top:16px;padding-top:16px;border-top:1px solid var(–steam);flex-wrap:wrap;}</p>
+<p class="p1">.secstrip label{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(–roast);display:block;margin-bottom:4px;}</p>
+<p class="p1">.secstrip input{background:#fff;border:1px solid var(–steam);padding:8px 10px;font-family:‘DM Mono’,monospace;font-size:.8rem;color:var(–espresso);outline:none;flex:1;min-width:130px;}</p>
+<p class="p2"><br></p>
+<p class="p1">.srow{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(–steam);}</p>
+<p class="p1">.srow label{font-size:.63rem;letter-spacing:1.5px;text-transform:uppercase;color:var(–roast);}</p>
+<p class="p1">.srow input{background:#fff;border:1px solid var(–steam);padding:7px 10px;font-family:‘DM Mono’,monospace;font-size:.82rem;color:var(–espresso);outline:none;width:100%;}</p>
+<p class="p1">.ssave{margin-top:16px;padding:10px 22px;background:var(–espresso);color:var(–cream);font-family:‘DM Mono’,monospace;font-size:.7rem;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;}</p>
+<p class="p2"><br></p>
+<p class="p1">/* AUDIT SECTIONS */</p>
+<p class="p1">.section{margin-bottom:24px;background:var(–foam);border:1px solid var(–steam);overflow:hidden;}</p>
+<p class="p1">.shead{background:var(–espresso);color:var(–cream);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;}</p>
+<p class="p1">.shead h2{font-family:‘Playfair Display’,serif;font-size:1.1rem;font-weight:400;}</p>
+<p class="p1">.sscore{font-family:‘Playfair Display’,serif;font-size:1.1rem;color:var(–caramel);}</p>
+<p class="p1">.collabels{display:grid;grid-template-columns:1fr auto;padding:8px 20px 4px;background:var(–foam);}</p>
+<p class="p1">.rlabs{display:flex;gap:4px;}</p>
+<p class="p1">.rl{width:36px;text-align:center;font-size:.5rem;color:var(–roast);}</p>
+<p class="p1">.crow{border-bottom:1px solid var(–steam);padding:14px 20px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;}</p>
+<p class="p1">.crow:last-of-type{border-bottom:none;}</p>
+<p class="p1">.crow:hover{background:rgba(196,131,74,.05);}</p>
+<p class="p1">.cname{font-size:.85rem;font-weight:500;margin-bottom:3px;}</p>
+<p class="p1">.cdesc{font-size:.7rem;color:var(–roast);line-height:1.5;}</p>
+<p class="p1">.rg{display:flex;gap:4px;flex-shrink:0;}</p>
+<p class="p1">.rb{width:36px;height:36px;border:1px solid var(–steam);background:var(–cream);cursor:pointer;font-family:‘DM Mono’,monospace;font-size:.75rem;color:var(–roast);display:flex;align-items:center;justify-content:center;}</p>
+<p class="p1">.rb:hover{border-color:var(–caramel);color:var(–caramel);}</p>
+<p class="p1">.rb.s0{background:var(–fail);border-color:var(–fail);color:#fff;}</p>
+<p class="p1">.rb.s1{background:var(–warn);border-color:var(–warn);color:#fff;}</p>
+<p class="p1">.rb.s2{background:#7A9B45;border-color:#7A9B45;color:#fff;}</p>
+<p class="p1">.rb.s3{background:var(–pass);border-color:var(–pass);color:#fff;}</p>
+<p class="p1">.narea{padding:14px 20px;border-top:1px solid var(–steam);background:var(–cream);}</p>
+<p class="p1">.narea label{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(–roast);display:block;margin-bottom:6px;}</p>
+<p class="p1">.narea textarea{width:100%;background:transparent;border:1px solid var(–steam);padding:8px 10px;font-family:‘DM Mono’,monospace;font-size:.78rem;color:var(–espresso);resize:vertical;min-height:56px;outline:none;}</p>
+<p class="p2"><br></p>
+<p class="p1">/* SUMMARY */</p>
+<p class="p1">.summary{border:2px solid var(–espresso);padding:28px;margin-bottom:24px;background:var(–foam);}</p>
+<p class="p1">.summary h2{font-family:‘Playfair Display’,serif;font-size:1.2rem;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(–steam);}</p>
+<p class="p1">.sbars{display:flex;flex-direction:column;gap:14px;margin-bottom:24px;}</p>
+<p class="p1">.brow{display:grid;grid-template-columns:120px 1fr 50px;align-items:center;gap:12px;}</p>
+<p class="p1">.blbl{font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(–roast);}</p>
+<p class="p1">.btrack{height:8px;background:var(–steam);overflow:hidden;}</p>
+<p class="p1">.bfill{height:100%;background:var(–caramel);width:0;transition:width .4s;}</p>
+<p class="p1">.bpct{font-size:.75rem;font-weight:500;text-align:right;}</p>
+<p class="p1">.trow{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(–steam);}</p>
+<p class="p1">.tlbl{font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(–roast);}</p>
+<p class="p1">.tscore{font-family:‘Playfair Display’,serif;font-size:2rem;}</p>
+<p class="p1">.verdict{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;font-weight:500;}</p>
+<p class="p1">.verdict.excellent{background:var(–pass);color:#fff;}</p>
+<p class="p1">.verdict.good{background:#7A9B45;color:#fff;}</p>
+<p class="p1">.verdict.needs-work{background:var(–warn);color:#fff;}</p>
+<p class="p1">.verdict.poor{background:var(–fail);color:#fff;}</p>
+<p class="p2"><br></p>
+<p class="p1">/* RECOGNITION */</p>
+<p class="p1">.recog{border:1px solid var(–steam);padding:20px;margin-bottom:24px;background:var(–foam);}</p>
+<p class="p1">.recog h3{font-family:‘Playfair Display’,serif;font-size:1rem;margin-bottom:16px;display:flex;align-items:center;gap:8px;}</p>
+<p class="p1">.recog h3::after{content:’’;flex:1;height:1px;background:var(–steam);}</p>
+<p class="p1">.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}</p>
+<p class="p1">.rf label{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(–roast);display:block;margin-bottom:4px;}</p>
+<p class="p1">.rf input{width:100%;background:transparent;border:none;border-bottom:2px solid var(–steam);padding:5px 0;font-family:‘DM Mono’,monospace;font-size:.85rem;color:var(–espresso);outline:none;}</p>
+<p class="p1">.rf input:focus{border-bottom-color:var(–caramel);}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ACTIONS */</p>
+<p class="p1">.actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:40px;}</p>
+<p class="p1">.btn{padding:13px 22px;font-family:‘DM Mono’,monospace;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border:none;}</p>
+<p class="p1">.btn:disabled{opacity:.6;cursor:not-allowed;}</p>
+<p class="p1">.btn.save{background:var(–pass);color:#fff;}</p>
+<p class="p1">.btn.pdf{background:var(–espresso);color:var(–cream);}</p>
+<p class="p1">.btn.email{background:transparent;color:var(–espresso);border:1px solid var(–espresso);}</p>
+<p class="p1">.btn.reset{background:transparent;color:var(–fail);border:1px solid var(–fail);}</p>
+<p class="p2"><br></p>
+<p class="p1">/* SAVED LIST */</p>
+<p class="p1">.saved-empty{font-size:.75rem;color:var(–roast);}</p>
+<p class="p1">.svlist{display:flex;flex-direction:column;gap:8px;}</p>
+<p class="p1">.svitem{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(–cream);border:1px solid var(–steam);flex-wrap:wrap;}</p>
+<p class="p1">.svinfo{flex:1;min-width:0;}</p>
+<p class="p1">.svtitle{font-size:.82rem;font-weight:500;}</p>
+<p class="p1">.svmeta{font-size:.63rem;color:var(–roast);margin-top:2px;}</p>
+<p class="p1">.svscore{font-family:‘Playfair Display’,serif;font-size:1.1rem;color:var(–caramel);flex-shrink:0;}</p>
+<p class="p1">.vp{font-size:.55rem;letter-spacing:1.5px;text-transform:uppercase;padding:2px 7px;font-weight:500;flex-shrink:0;}</p>
+<p class="p1">.vp.excellent{background:var(–pass);color:#fff;}</p>
+<p class="p1">.vp.good{background:#7A9B45;color:#fff;}</p>
+<p class="p1">.vp.needs-work{background:var(–warn);color:#fff;}</p>
+<p class="p1">.vp.poor{background:var(–fail);color:#fff;}</p>
+<p class="p1">.svbtns{display:flex;gap:6px;flex-shrink:0;}</p>
+<p class="p1">.svbtn{padding:5px 10px;font-family:‘DM Mono’,monospace;font-size:.6rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;}</p>
+<p class="p1">.svbtn.load{background:var(–espresso);color:var(–cream);}</p>
+<p class="p1">.svbtn.del{background:transparent;color:var(–fail);border:1px solid var(–fail);}</p>
+<p class="p2"><br></p>
+<p class="p1">/* MODALS */</p>
+<p class="p1">.overlay{position:fixed;inset:0;background:rgba(44,24,16,.6);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;}</p>
+<p class="p1">.overlay.open{display:flex;}</p>
+<p class="p1">.modal{background:var(–cream);padding:28px;width:100%;max-width:400px;border-top:3px solid var(–espresso);}</p>
+<p class="p1">.modal h4{font-family:‘Playfair Display’,serif;font-size:1.1rem;margin-bottom:8px;color:var(–espresso);}</p>
+<p class="p1">.modal p{font-size:.75rem;color:var(–roast);margin-bottom:16px;line-height:1.6;}</p>
+<p class="p1">.mf{margin-bottom:12px;}</p>
+<p class="p1">.mf label{display:block;font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(–roast);margin-bottom:4px;}</p>
+<p class="p1">.mf input,.mf textarea,.mf select{width:100%;background:#fff;border:1px solid var(–steam);padding:8px 10px;font-family:‘DM Mono’,monospace;font-size:.85rem;color:var(–espresso);outline:none;resize:none;}</p>
+<p class="p1">.pin-inp{font-size:1.4rem !important;letter-spacing:8px;text-align:center;}</p>
+<p class="p1">.mbtns{display:flex;gap:10px;margin-top:16px;}</p>
+<p class="p1">.mbtns button{flex:1;padding:11px;font-family:‘DM Mono’,monospace;font-size:.68rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border:none;}</p>
+<p class="p1">.mok{background:var(–espresso);color:var(–cream);}</p>
+<p class="p1">.mcancel{background:transparent;border:1px solid var(–steam);color:var(–roast);}</p>
+<p class="p1">.merr{font-size:.7rem;color:var(–fail);text-align:center;margin-top:8px;min-height:18px;}</p>
+<p class="p2"><br></p>
+<p class="p1">/* TOAST */</p>
+<p class="p1">.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:var(–espresso);color:var(–cream);padding:12px 24px;font-size:.75rem;letter-spacing:1px;opacity:0;transition:all .3s;pointer-events:none;z-index:99999;white-space:nowrap;}</p>
+<p class="p1">.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}</p>
+<p class="p2"><br></p>
+<p class="p1">@media(max-width:520px){</p>
+<p class="p1">body{padding:20px 14px 60px;}</p>
+<p class="p1">.header h1{font-size:1.5rem;}</p>
+<p class="p1">.crow{grid-template-columns:1fr;}</p>
+<p class="p1">.rgrid{grid-template-columns:1fr;}</p>
+<p class="p1">.brow{grid-template-columns:80px 1fr 40px;}</p>
+<p class="p1">.row2{grid-template-columns:1fr;}</p>
+<p class="p1">.srow{grid-template-columns:1fr;gap:4px;}</p>
+<p class="p1">}</p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1">&lt;div class="page"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="header-top"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h1&gt;&lt;span id="cafe-sub"&gt;&lt;/span&gt;Internal Audit&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="score-badge"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="num" id="total-num"&gt;—&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="lbl"&gt;Total / &lt;span id="total-max"&gt;100&lt;/span&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="meta-grid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="mf"&gt;&lt;label&gt;Date&lt;/label&gt;&lt;input type="date" id="f-date"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="mf"&gt;&lt;label&gt;Shift&lt;/label&gt;&lt;input type="text" id="f-shift" placeholder="AM / PM / Close"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="mf"&gt;&lt;label&gt;Auditor&lt;/label&gt;&lt;input type="text" id="f-auditor" placeholder="Name"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="mf"&gt;&lt;label&gt;Team Lead&lt;/label&gt;&lt;input type="text" id="f-lead" placeholder="Name"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="mf"&gt;&lt;label&gt;Staff on Shift&lt;/label&gt;&lt;input type="text" id="f-staff" placeholder="Names or count"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="email-bar"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;label&gt;Send results to&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;input type="email" id="f-email" placeholder="your@email.com"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- FORM EDITOR --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="panel ep" id="ep"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="panel-head" id="ep-head"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h3&gt;&amp;#9881; Form Editor — manage sections &amp;amp; questions&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span class="ptoggle" id="ep-toggle"&gt;&amp;#128274; Unlock&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="panel-body" id="ep-body"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="etabs" id="etabs"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="ebodies"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- SAVED AUDITS --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="panel sp" id="sp"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="panel-head" id="sp-head"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h3&gt;&amp;#128193; Saved Audits&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span class="ptoggle" id="sp-toggle"&gt;&amp;#9660; Open&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="panel-body" id="sp-body"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="sp-status" style="font-size:.72rem;color:var(--roast);margin-bottom:8px;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="sp-list"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- AUDIT SECTIONS --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="sections"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- SUMMARY --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="summary"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Audit Summary&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="sbars" id="sbars"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="trow"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;&lt;div class="tlbl"&gt;Overall Score&lt;/div&gt;&lt;div class="tscore" id="tscore"&gt;— / —&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span class="verdict" id="verdict"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- RECOGNITION --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="recog"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h3&gt;Team Recognition&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="rgrid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="rf"&gt;&lt;label&gt;Star of the Shift&lt;/label&gt;&lt;input type="text" id="f-star" placeholder="Name"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="rf"&gt;&lt;label&gt;Reason&lt;/label&gt;&lt;input type="text" id="f-reason" placeholder="What did they do well?"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="rf" style="grid-column:1/-1"&gt;&lt;label&gt;Actions Before Next Audit&lt;/label&gt;&lt;input type="text" id="f-actions" placeholder="Key items to address..."&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="rf"&gt;&lt;label&gt;Next Audit Date&lt;/label&gt;&lt;input type="date" id="f-next"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- ACTIONS --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="actions"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="btn save" id="btn-save"&gt;&amp;#128190; Save to Sheets&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="btn pdf"<span class="Apple-converted-space">  </span>id="btn-pdf"&gt;&amp;#8595; Save as PDF&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="btn email" id="btn-email"&gt;&amp;#9993; Email Results&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="btn reset" id="btn-reset"&gt;Reset&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;&lt;!-- /page --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- PIN MODAL --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="overlay" id="pin-overlay"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="modal"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h4&gt;Manager Access&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;Enter your manager PIN to continue.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="mf"&gt;&lt;input type="password" class="pin-inp" id="pin-inp" maxlength="8" placeholder="••••"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="mbtns"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="mcancel" id="pin-cancel"&gt;Cancel&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="mok" id="pin-ok"&gt;Confirm&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="merr" id="pin-err"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- EDIT QUESTION MODAL --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="overlay" id="eq-overlay"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="modal"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h4&gt;Edit Question&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="mf"&gt;&lt;label&gt;Name&lt;/label&gt;&lt;input type="text" id="eq-name"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="mf"&gt;&lt;label&gt;Description&lt;/label&gt;&lt;textarea id="eq-desc" rows="3"&gt;&lt;/textarea&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="mf"&gt;&lt;label&gt;Max Points&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;select id="eq-max"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="1"&gt;1&lt;/option&gt;&lt;option value="2"&gt;2&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="3" selected&gt;3&lt;/option&gt;&lt;option value="4"&gt;4&lt;/option&gt;&lt;option value="5"&gt;5&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="mbtns"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="mcancel" id="eq-cancel"&gt;Cancel&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="mok" id="eq-ok"&gt;Save&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="toast" id="toast"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1">/* ═══════════════════════════════════════════════</p>
+<p class="p1"><span class="Apple-converted-space">   </span>CONFIG — edit cafeName, appsScriptURL, managerPin</p>
+<p class="p1">═══════════════════════════════════════════════ */</p>
+<p class="p1">var C = {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cafeName:<span class="Apple-converted-space">      </span>"Brad &amp; Dills",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>appsScriptURL: "YOUR_APPS_SCRIPT_URL_HERE",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>managerPin:<span class="Apple-converted-space">    </span>"1234",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>sections: {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cleanliness: { title: "Cleanliness &amp; Hygiene", maxPts: 36 },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>performance:<span class="Apple-converted-space">  </span>{ title: "Performance &amp; Quality", maxPts: 36 },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>labour: <span class="Apple-converted-space">      </span>{ title: "Labour &amp; Team",<span class="Apple-converted-space">          </span>maxPts: 28 }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>verdicts: [</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ min:85, label:"Excellent", <span class="Apple-converted-space">    </span>cls:"excellent"<span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ min:70, label:"Good",<span class="Apple-converted-space">          </span>cls:"good" <span class="Apple-converted-space">      </span>},</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ min:50, label:"Needs Work",<span class="Apple-converted-space">    </span>cls:"needs-work" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ min:0,<span class="Apple-converted-space">  </span>label:"Urgent Action", cls:"poor" <span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>],</p>
+<p class="p1"><span class="Apple-converted-space">  </span>criteria: {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cleanliness: [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Bar &amp; Counter Surfaces",<span class="Apple-converted-space">    </span>max:3, desc:"Espresso bar, pass-through and counter wiped; no coffee residue, milk spillage or clutter" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Equipment Cleanliness", <span class="Apple-converted-space">    </span>max:3, desc:"Group heads backflushed, steam wands purged and wiped, grinders free of stale grounds" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Front-of-House &amp; Tables", <span class="Apple-converted-space">  </span>max:3, desc:"Tables cleared promptly, chairs pushed in, floor swept; no crumbs or pooled liquids" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Waste &amp; Recycling", <span class="Apple-converted-space">        </span>max:3, desc:"Bins not overflowing, spent grounds disposed correctly, recycling separated" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Toilets &amp; Handwashing", <span class="Apple-converted-space">    </span>max:3, desc:"Customer WC checked and stocked; team practising correct handwashing protocols" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Personal Presentation", <span class="Apple-converted-space">    </span>max:3, desc:"Uniform/apron clean and worn correctly, hair tied back, no jewellery near food prep" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Food Safety &amp; Storage", <span class="Apple-converted-space">    </span>max:3, desc:"All food labelled with date and covered; fridge temps recorded; FIFO observed" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Closing Cleanliness Prep",<span class="Apple-converted-space">  </span>max:3, desc:"End-of-shift deep clean checklist initiated before close; no jobs left for next team" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Milk Station &amp; Fridges",<span class="Apple-converted-space">    </span>max:3, desc:"Milk station clean, alternative milks labelled; fridge interior wiped and organised" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Dishwash &amp; Crockery", <span class="Apple-converted-space">      </span>max:3, desc:"Cups/glasses free of residue; no chipped crockery in service; glasswasher clean" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Back of House &amp; Storage", <span class="Apple-converted-space">  </span>max:3, desc:"Dry store tidy, stock off the floor, clear walkways; no out-of-date product on shelves" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Condiment &amp; Display Areas", max:3, desc:"Sugar, napkins and condiments fully stocked and clean; display cabinet glass smear-free" }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>],</p>
+<p class="p1"><span class="Apple-converted-space">    </span>performance: [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Espresso Quality", <span class="Apple-converted-space">              </span>max:3, desc:"Shot times dialled in, correct dose and yield; extractions consistent across the shift" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Milk Texturing", <span class="Apple-converted-space">                </span>max:3, desc:"Correct temperature (60-65C), silky microfoam, no large bubbles; latte art where appropriate" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Drink Presentation", <span class="Apple-converted-space">            </span>max:3, desc:"Cups clean and correct size; lids on correctly; takeaway orders labelled clearly" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Speed of Service", <span class="Apple-converted-space">              </span>max:3, desc:"Drinks delivered within target time; queue managed without compromising quality" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Order Accuracy", <span class="Apple-converted-space">                </span>max:3, desc:"Correct drinks made first time; dietary requirements and modifications handled correctly" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Customer Experience",<span class="Apple-converted-space">            </span>max:3, desc:"Warm greetings, eye contact, genuine interaction; complaints handled gracefully" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Menu Knowledge", <span class="Apple-converted-space">                </span>max:3, desc:"Team can describe drinks and food confidently; allergen info accurate and at hand" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Upselling &amp; Recommendations",<span class="Apple-converted-space">    </span>max:3, desc:"Natural opportunities to suggest food pairings, size upgrades or specials taken" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Till &amp; Cash Handling", <span class="Apple-converted-space">          </span>max:3, desc:"Correct pricing entered, change given accurately, card processed without issues" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Problem Solving Under Pressure", max:3, desc:"Equipment issues escalated promptly; workarounds found calmly during busy periods" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Opening / Closing Procedures", <span class="Apple-converted-space">  </span>max:3, desc:"Correct startup or shutdown sequence followed without prompting; nothing missed" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Stock &amp; Wastage Control",<span class="Apple-converted-space">        </span>max:3, desc:"Stock levels monitored; low items flagged before running out; minimal unnecessary wastage" }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>],</p>
+<p class="p1"><span class="Apple-converted-space">    </span>labour: [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Punctuality &amp; Readiness", <span class="Apple-converted-space">    </span>max:3, desc:"All staff on time, clocked in correctly, uniform ready; no last-minute scrambles at open" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Station Management",<span class="Apple-converted-space">          </span>max:3, desc:"Each person owns their station; restocking and tidying done proactively without being asked" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Communication &amp; Teamwork",<span class="Apple-converted-space">    </span>max:3, desc:"Clear calling of orders, asking for help when needed, supporting colleagues during rushes" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Initiative &amp; Self-Direction", max:3, desc:"Tasks identified and started without instruction; quiet periods used productively" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Break &amp; Rota Management", <span class="Apple-converted-space">    </span>max:3, desc:"Breaks taken at agreed times without disrupting service; cover arranged appropriately" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Attitude &amp; Morale", <span class="Apple-converted-space">          </span>max:3, desc:"Positive energy on shift; no visible stress or negativity in front of customers" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Training &amp; Development",<span class="Apple-converted-space">      </span>max:3, desc:"New skills being practised; feedback from previous audits visibly acted upon" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Handover Quality",<span class="Apple-converted-space">            </span>max:4, desc:"Incoming shift briefed on any issues, stock levels and special requirements; clean handover" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ name:"Adherence to Policy", <span class="Apple-converted-space">        </span>max:3, desc:"GDPR, allergen and safeguarding policies followed; no shortcuts on key compliance areas" }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">};</p>
+<p class="p1">/* ═══════════════════════════════════════════════ */</p>
+<p class="p2"><br></p>
+<p class="p1">var pinCB=null, edOpen=false, editTgt=null, activeTab=null;</p>
+<p class="p2"><br></p>
+<p class="p1">function $i(id){return document.getElementById(id);}</p>
+<p class="p1">function tmax(){return Object.values(C.sections).reduce(function(a,s){return a+s.maxPts;},0);}</p>
+<p class="p1">function recalc(k){C.sections[k].maxPts=C.criteria[k].reduce(function(a,c){return a+c.max;},0);}</p>
+<p class="p1">function configured(){return C.appsScriptURL&amp;&amp;C.appsScriptURL!=='YOUR_APPS_SCRIPT_URL_HERE';}</p>
+<p class="p1">function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');}</p>
+<p class="p1">function toast(m){var t=$i('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},3000);}</p>
+<p class="p2"><br></p>
+<p class="p1">function renderAll(){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>$i('cafe-sub').textContent=C.cafeName+' \u2014 ';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>$i('total-max').textContent=tmax();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>renderSections();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>renderBars();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>updateScores();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if(edOpen) renderEditor();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function renderSections(){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var c=$i('sections'); c.innerHTML='';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>Object.keys(C.criteria).forEach(function(key,idx){</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var sec=C.sections[key]||{title:key,maxPts:0};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var el=document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>el.className='section'; el.id='sec-'+key;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>el.innerHTML=</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'&lt;div class="shead"&gt;&lt;h2&gt;0'+(idx+1)+' \u2014 '+sec.title+'&lt;/h2&gt;'+</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'&lt;div style="display:flex;align-items:center;gap:14px;"&gt;'+</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'&lt;span style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;opacity:.6"&gt;Max '+sec.maxPts+' pts&lt;/span&gt;'+</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'&lt;span class="sscore" id="sc-'+key+'"&gt;0&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;'+</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'&lt;div class="collabels"&gt;&lt;div&gt;&lt;/div&gt;&lt;div class="rlabs"&gt;'+</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'&lt;div class="rl"&gt;Poor&lt;/div&gt;&lt;div class="rl"&gt;Fair&lt;/div&gt;&lt;div class="rl"&gt;Good&lt;/div&gt;&lt;div class="rl"&gt;Exc.&lt;/div&gt;'+</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'&lt;/div&gt;&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>C.criteria[key].forEach(function(cr){</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var row=document.createElement('div'); row.className='crow';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>row.innerHTML='&lt;div&gt;&lt;div class="cname"&gt;'+cr.name+'&lt;/div&gt;&lt;div class="cdesc"&gt;'+cr.desc+'&lt;/div&gt;&lt;/div&gt;'+</p>
+<p class="p1"><span class="Apple-converted-space">        </span>'&lt;div class="rg" data-k="'+key+'" data-max="'+cr.max+'"&gt;&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>el.appendChild(row);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var na=document.createElement('div'); na.className='narea';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>na.innerHTML='&lt;label&gt;'+sec.title+' Notes&lt;/label&gt;&lt;textarea id="nt-'+key+'" placeholder="Note any issues or commendations..."&gt;&lt;/textarea&gt;';</p>
+<p class="p2"><br></p>
+<p class="p1">```</p>
+<p class="p1">el.appendChild(na);</p>
+<p class="p1">c.appendChild(el);</p>
+<p class="p1">```</p>
+<p class="p2"><br></p>
+<p class="p1">});</p>
+<p class="p1">document.querySelectorAll(’.rg’).forEach(function(g){</p>
+<p class="p1">var max=parseInt(g.dataset.max)||3;</p>
+<p class="p1">[‘0’,‘1’,‘2’,‘3’].forEach(function(l,i){</p>
+<p class="p1">var b=document.createElement(‘button’);</p>
+<p class="p1">b.className=‘rb’; b.type=‘button’; b.textContent=l;</p>
+<p class="p1">b.dataset.v=i===0?0:Math.round((i/3)*max);</p>
+<p class="p1">b.addEventListener(‘click’,function(){</p>
+<p class="p1">g.querySelectorAll(’.rb’).forEach(function(x,j){x.className=‘rb’+(j===i?’ s’+i:’’);});</p>
+<p class="p1">g.dataset.sel=b.dataset.v;</p>
+<p class="p1">updateScores();</p>
+<p class="p1">});</p>
+<p class="p1">g.appendChild(b);</p>
+<p class="p1">});</p>
+<p class="p1">});</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function renderBars(){</p>
+<p class="p1">var c=$i(‘sbars’); c.innerHTML=’’;</p>
+<p class="p1">Object.keys(C.sections).forEach(function(k){</p>
+<p class="p1">var row=document.createElement(‘div’); row.className=‘brow’;</p>
+<p class="p1">row.innerHTML=’&lt;div class="blbl"&gt;’+C.sections[k].title.split(’&amp;’)[0].trim()+’&lt;/div&gt;’+</p>
+<p class="p1">‘&lt;div class="btrack"&gt;&lt;div class="bfill" id="bf-'+k+'"&gt;&lt;/div&gt;&lt;/div&gt;’+</p>
+<p class="p1">‘&lt;div class="bpct" id="bp-'+k+'"&gt;\u2014&lt;/div&gt;’;</p>
+<p class="p1">c.appendChild(row);</p>
+<p class="p1">});</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function secScore(k){</p>
+<p class="p1">var s=0;</p>
+<p class="p1">document.querySelectorAll(’[data-k=”’+k+’”]’).forEach(function(g){var v=parseInt(g.dataset.sel);if(!isNaN(v))s+=v;});</p>
+<p class="p1">return s;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function updateScores(){</p>
+<p class="p1">var total=0,max=tmax();</p>
+<p class="p1">Object.keys(C.sections).forEach(function(k){</p>
+<p class="p1">var sm=C.sections[k].maxPts,s=secScore(k); total+=s;</p>
+<p class="p1">var el=$i(‘sc-’+k); if(el)el.textContent=s;</p>
+<p class="p1">var pct=sm&gt;0?Math.round((s/sm)*100):0;</p>
+<p class="p1">var bar=$i(‘bf-’+k),pEl=$i(‘bp-’+k);</p>
+<p class="p1">if(bar){bar.style.width=pct+’%’;bar.style.background=pct&gt;=80?’#3A6B45’:pct&gt;=60?’#7A9B45’:pct&gt;=40?’#B8962E’:’#8B2E2E’;}</p>
+<p class="p1">if(pEl)pEl.textContent=pct+’%’;</p>
+<p class="p1">});</p>
+<p class="p1">$i(‘total-num’).textContent=total;</p>
+<p class="p1">$i(‘tscore’).textContent=total+’ / ’+max;</p>
+<p class="p1">var tp=max&gt;0?Math.round((total/max)*100):0;</p>
+<p class="p1">var badge=$i(‘verdict’);</p>
+<p class="p1">var v=null; for(var i=0;i&lt;C.verdicts.length;i++){if(tp&gt;=C.verdicts[i].min){v=C.verdicts[i];break;}}</p>
+<p class="p1">if(!v)v=C.verdicts[C.verdicts.length-1];</p>
+<p class="p1">badge.textContent=v.label; badge.className=’verdict ’+v.cls;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── EDITOR ─────────────────────────── */</p>
+<p class="p1">$i(‘ep-head’).addEventListener(‘click’,function(){</p>
+<p class="p1">if(edOpen){</p>
+<p class="p1">$i(‘ep-body’).classList.remove(‘open’);</p>
+<p class="p1">$i(‘ep-toggle’).textContent=’\uD83D\uDD12 Unlock’;</p>
+<p class="p1">edOpen=false; return;</p>
+<p class="p1">}</p>
+<p class="p1">openPin(function(){</p>
+<p class="p1">edOpen=true;</p>
+<p class="p1">$i(‘ep-toggle’).textContent=’\uD83D\uDD13 Open’;</p>
+<p class="p1">$i(‘ep-body’).classList.add(‘open’);</p>
+<p class="p1">renderEditor();</p>
+<p class="p1">});</p>
+<p class="p1">});</p>
+<p class="p2"><br></p>
+<p class="p1">function renderEditor(){</p>
+<p class="p1">var keys=Object.keys(C.criteria), all=keys.concat([‘settings’]);</p>
+<p class="p1">if(!activeTab||all.indexOf(activeTab)===-1) activeTab=keys[0]||‘settings’;</p>
+<p class="p1">$i(‘etabs’).innerHTML=all.map(function(k){</p>
+<p class="p1">return ‘&lt;button class="etab'+(k===activeTab?' on':'')+'" data-t="'+k+'"&gt;’+(k===‘settings’?‘Settings’:(C.sections[k]?C.sections[k].title:k))+’&lt;/button&gt;’;</p>
+<p class="p1">}).join(’’);</p>
+<p class="p1">$i(‘etabs’).querySelectorAll(’.etab’).forEach(function(b){</p>
+<p class="p1">b.addEventListener(‘click’,function(){activeTab=b.dataset.t;renderEditor();});</p>
+<p class="p1">});</p>
+<p class="p1">var eb=$i(‘ebodies’); eb.innerHTML=’’;</p>
+<p class="p1">keys.forEach(function(key){</p>
+<p class="p1">var div=document.createElement(‘div’);</p>
+<p class="p1">div.className=‘ebody’+(key===activeTab?’ on’:’’);</p>
+<p class="p1">var h=C.criteria[key].map(function(cr,ci){</p>
+<p class="p1">return ‘&lt;div class="ecrow"&gt;’+</p>
+<p class="p1">‘&lt;div class="ecinfo"&gt;&lt;div class="ecname"&gt;’+cr.name+’&lt;/div&gt;&lt;div class="ecdesc"&gt;’+cr.desc+’&lt;/div&gt;&lt;/div&gt;’+</p>
+<p class="p1">‘&lt;div class="ecpts"&gt;’+cr.max+’ pts&lt;/div&gt;’+</p>
+<p class="p1">‘&lt;button class="ecbtn edit" data-k="'+key+'" data-i="'+ci+'" data-a="edit"&gt;Edit&lt;/button&gt;’+</p>
+<p class="p1">‘&lt;button class="ecbtn rem"<span class="Apple-converted-space">  </span>data-k="'+key+'" data-i="'+ci+'" data-a="rem"&gt;Remove&lt;/button&gt;’+</p>
+<p class="p1">‘&lt;/div&gt;’;</p>
+<p class="p1">}).join(’’);</p>
+<p class="p1">h+=’&lt;div class="addform"&gt;&lt;div class="addform-title"&gt;+ Add New Question&lt;/div&gt;’+</p>
+<p class="p1">‘&lt;div class="row2"&gt;&lt;input type="text" id="an-'+key+'" placeholder="Question name"&gt;’+</p>
+<p class="p1">‘&lt;select id="am-'+key+'"&gt;&lt;option value="1"&gt;1 pt&lt;/option&gt;&lt;option value="2"&gt;2 pts&lt;/option&gt;’+</p>
+<p class="p1">‘&lt;option value="3" selected&gt;3 pts&lt;/option&gt;&lt;option value="4"&gt;4 pts&lt;/option&gt;&lt;option value="5"&gt;5 pts&lt;/option&gt;&lt;/select&gt;&lt;/div&gt;’+</p>
+<p class="p1">‘&lt;textarea id="ad-'+key+'" rows="2" placeholder="Description — what should the auditor check?"&gt;&lt;/textarea&gt;’+</p>
+<p class="p1">‘&lt;button class="abtn ok" data-add="'+key+'"&gt;Add Question&lt;/button&gt;&lt;/div&gt;’+</p>
+<p class="p1">‘&lt;div class="secstrip"&gt;’+</p>
+<p class="p1">‘&lt;div style="flex:1;min-width:130px"&gt;&lt;label&gt;Rename Section&lt;/label&gt;&lt;input type="text" id="rn-'+key+'" value="'+C.sections[key].title+'"&gt;&lt;/div&gt;’+</p>
+<p class="p1">‘&lt;div&gt;&lt;label style="display:block"&gt; &lt;/label&gt;&lt;button class="abtn ok" data-ren="'+key+'"&gt;Rename&lt;/button&gt;&lt;/div&gt;’+</p>
+<p class="p1">‘&lt;div&gt;&lt;label style="display:block"&gt; &lt;/label&gt;&lt;button class="abtn danger" data-delsec="'+key+'"&gt;Delete Section&lt;/button&gt;&lt;/div&gt;’+</p>
+<p class="p1">‘&lt;/div&gt;’;</p>
+<p class="p1">div.innerHTML=h;</p>
+<p class="p1">eb.appendChild(div);</p>
+<p class="p1">});</p>
+<p class="p1">var sd=document.createElement(‘div’);</p>
+<p class="p1">sd.className=‘ebody’+(‘settings’===activeTab?’ on’:’’);</p>
+<p class="p1">sd.innerHTML=</p>
+<p class="p1">‘&lt;div class="srow"&gt;&lt;label&gt;Caf\u00e9 Name&lt;/label&gt;&lt;input type="text" id="sc-name" value="'+C.cafeName+'"&gt;&lt;/div&gt;’+</p>
+<p class="p1">‘&lt;div class="srow"&gt;&lt;label&gt;New Manager PIN&lt;/label&gt;&lt;input type="password" id="sc-pin" placeholder="Leave blank to keep current"&gt;&lt;/div&gt;’+</p>
+<p class="p1">‘&lt;button class="ssave" id="sc-save"&gt;Save Settings&lt;/button&gt;’+</p>
+<p class="p1">‘&lt;div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--steam)"&gt;’+</p>
+<p class="p1">‘&lt;div class="addform-title" style="margin-bottom:8px"&gt;+ Add New Section&lt;/div&gt;’+</p>
+<p class="p1">‘&lt;input type="text" id="new-sec" placeholder="e.g. Safety, Food, Delivery" style="width:100%;background:#fff;border:1px solid var(--steam);padding:8px 10px;font-family:\'DM Mono\',monospace;font-size:.8rem;color:var(--espresso);outline:none;margin-bottom:8px;"&gt;’+</p>
+<p class="p1">‘&lt;button class="abtn ok" id="add-sec"&gt;Add Section&lt;/button&gt;’+</p>
+<p class="p1">‘&lt;/div&gt;’;</p>
+<p class="p1">eb.appendChild(sd);</p>
+<p class="p2"><br></p>
+<p class="p1">eb.addEventListener(‘click’,function(e){</p>
+<p class="p1">var t=e.target;</p>
+<p class="p1">if(t.dataset.a===‘edit’){openEditModal(t.dataset.k,parseInt(t.dataset.i));return;}</p>
+<p class="p1">if(t.dataset.a===‘rem’){delCrit(t.dataset.k,parseInt(t.dataset.i));return;}</p>
+<p class="p1">if(t.dataset.add){addCrit(t.dataset.add);return;}</p>
+<p class="p1">if(t.dataset.ren){renameSec(t.dataset.ren);return;}</p>
+<p class="p1">if(t.dataset.delsec){delSec(t.dataset.delsec);return;}</p>
+<p class="p1">if(t.id===‘sc-save’){saveSettings();return;}</p>
+<p class="p1">if(t.id===‘add-sec’){addSec();return;}</p>
+<p class="p1">});</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function addCrit(k){</p>
+<p class="p1">var n=($i(‘an-’+k)||{value:’’}).value.trim();</p>
+<p class="p1">var d=($i(‘ad-’+k)||{value:’’}).value.trim();</p>
+<p class="p1">var m=parseInt(($i(‘am-’+k)||{value:‘3’}).value)||3;</p>
+<p class="p1">if(!n){toast(‘Please enter a question name.’);return;}</p>
+<p class="p1">C.criteria[k].push({name:n,desc:d,max:m}); recalc(k); renderAll(); toast(’”’+n+’” added.’);</p>
+<p class="p1">}</p>
+<p class="p1">function openEditModal(k,i){</p>
+<p class="p1">editTgt={k:k,i:i};</p>
+<p class="p1">var cr=C.criteria[k][i];</p>
+<p class="p1">$i(‘eq-name’).value=cr.name; $i(‘eq-desc’).value=cr.desc; $i(‘eq-max’).value=cr.max;</p>
+<p class="p1">$i(‘eq-overlay’).classList.add(‘open’);</p>
+<p class="p1">setTimeout(function(){$i(‘eq-name’).focus();},100);</p>
+<p class="p1">}</p>
+<p class="p1">function delCrit(k,i){</p>
+<p class="p1">var n=C.criteria[k][i].name;</p>
+<p class="p1">if(!confirm(‘Remove “’+n+’”?’))return;</p>
+<p class="p1">C.criteria[k].splice(i,1); recalc(k); renderAll(); toast(’”’+n+’” removed.’);</p>
+<p class="p1">}</p>
+<p class="p1">function renameSec(k){</p>
+<p class="p1">var v=($i(‘rn-’+k)||{value:’’}).value.trim();</p>
+<p class="p1">if(!v){toast(‘Name cannot be empty.’);return;}</p>
+<p class="p1">C.sections[k].title=v; renderAll(); toast(‘Section renamed.’);</p>
+<p class="p1">}</p>
+<p class="p1">function delSec(k){</p>
+<p class="p1">if(Object.keys(C.sections).length&lt;=1){toast(‘Cannot delete the last section.’);return;}</p>
+<p class="p1">if(!confirm(‘Delete “’+C.sections[k].title+’” and all its questions?’))return;</p>
+<p class="p1">delete C.sections[k]; delete C.criteria[k];</p>
+<p class="p1">if(activeTab===k) activeTab=Object.keys(C.criteria)[0]||‘settings’;</p>
+<p class="p1">renderAll(); toast(‘Section deleted.’);</p>
+<p class="p1">}</p>
+<p class="p1">function addSec(){</p>
+<p class="p1">var t=($i(‘new-sec’)||{value:’’}).value.trim();</p>
+<p class="p1">if(!t){toast(‘Enter a section title first.’);return;}</p>
+<p class="p1">var k=slug(t)||(‘sec_’+Date.now());</p>
+<p class="p1">if(C.sections[k]){toast(‘Section already exists.’);return;}</p>
+<p class="p1">C.sections[k]={title:t,maxPts:0}; C.criteria[k]=[];</p>
+<p class="p1">activeTab=k; renderAll(); toast(’”’+t+’” added.’);</p>
+<p class="p1">}</p>
+<p class="p1">function saveSettings(){</p>
+<p class="p1">var n=($i(‘sc-name’)||{value:’’}).value.trim();</p>
+<p class="p1">var p=($i(‘sc-pin’)||{value:’’}).value.trim();</p>
+<p class="p1">if(n)C.cafeName=n;</p>
+<p class="p1">if(p){if(p.length&lt;3){toast(‘PIN must be at least 3 characters.’);return;}C.managerPin=p;toast(‘Settings saved. New PIN active.’);}</p>
+<p class="p1">else toast(‘Settings saved.’);</p>
+<p class="p1">renderAll();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── PIN ────────────────────────────── */</p>
+<p class="p1">function openPin(cb){</p>
+<p class="p1">pinCB=cb; $i(‘pin-err’).textContent=’’; $i(‘pin-inp’).value=’’;</p>
+<p class="p1">$i(‘pin-overlay’).classList.add(‘open’);</p>
+<p class="p1">setTimeout(function(){$i(‘pin-inp’).focus();},100);</p>
+<p class="p1">}</p>
+<p class="p1">function doPin(){</p>
+<p class="p1">if($i(‘pin-inp’).value===C.managerPin){</p>
+<p class="p1">$i(‘pin-overlay’).classList.remove(‘open’); if(pinCB)pinCB(); pinCB=null;</p>
+<p class="p1">} else {</p>
+<p class="p1">$i(‘pin-err’).textContent=‘Incorrect PIN \u2014 try again.’;</p>
+<p class="p1">$i(‘pin-inp’).value=’’; $i(‘pin-inp’).focus();</p>
+<p class="p1">}</p>
+<p class="p1">}</p>
+<p class="p1">$i(‘pin-ok’).addEventListener(‘click’,doPin);</p>
+<p class="p1">$i(‘pin-cancel’).addEventListener(‘click’,function(){$i(‘pin-overlay’).classList.remove(‘open’);pinCB=null;});</p>
+<p class="p1">$i(‘pin-inp’).addEventListener(‘keydown’,function(e){if(e.key===‘Enter’)doPin();});</p>
+<p class="p1">$i(‘eq-ok’).addEventListener(‘click’,function(){</p>
+<p class="p1">if(!editTgt)return;</p>
+<p class="p1">var n=$i(‘eq-name’).value.trim(),d=$i(‘eq-desc’).value.trim(),m=parseInt($i(‘eq-max’).value)||3;</p>
+<p class="p1">if(!n){toast(‘Name cannot be empty.’);return;}</p>
+<p class="p1">C.criteria[editTgt.k][editTgt.i]={name:n,desc:d,max:m};</p>
+<p class="p1">recalc(editTgt.k); $i(‘eq-overlay’).classList.remove(‘open’); editTgt=null; renderAll(); toast(‘Updated.’);</p>
+<p class="p1">});</p>
+<p class="p1">$i(‘eq-cancel’).addEventListener(‘click’,function(){$i(‘eq-overlay’).classList.remove(‘open’);editTgt=null;});</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── SAVED PANEL ────────────────────── */</p>
+<p class="p1">$i(‘sp-head’).addEventListener(‘click’,function(){</p>
+<p class="p1">var open=$i(‘sp-body’).classList.toggle(‘open’);</p>
+<p class="p1">$i(‘sp-toggle’).textContent=open?’\u25b2 Close’:’\u25bc Open’;</p>
+<p class="p1">if(open) loadSaved();</p>
+<p class="p1">});</p>
+<p class="p2"><br></p>
+<p class="p1">function collectData(){</p>
+<p class="p1">var r={};</p>
+<p class="p1">document.querySelectorAll(’.rg’).forEach(function(g,i){r[i]={k:g.dataset.k,sel:g.dataset.sel||null};});</p>
+<p class="p1">var n={};</p>
+<p class="p1">Object.keys(C.sections).forEach(function(k){var el=$i(‘nt-’+k);if(el)n[k]=el.value;});</p>
+<p class="p1">return{date:$i(‘f-date’).value,shift:$i(‘f-shift’).value,auditor:$i(‘f-auditor’).value,</p>
+<p class="p1">teamLead:$i(‘f-lead’).value,staff:$i(‘f-staff’).value,starName:$i(‘f-star’).value,</p>
+<p class="p1">starReason:$i(‘f-reason’).value,actionsText:$i(‘f-actions’).value,nextAudit:$i(‘f-next’).value,</p>
+<p class="p1">totalScore:$i(‘total-num’).textContent,totalMax:tmax(),verdict:$i(‘verdict’).textContent,</p>
+<p class="p1">cleanScore:secScore(‘cleanliness’),perfScore:secScore(‘performance’),labourScore:secScore(‘labour’),</p>
+<p class="p1">ratings:r,notes:n};</p>
+<p class="p1">}</p>
+<p class="p1">function applyData(data){</p>
+<p class="p1">var map={‘f-date’:data.date,‘f-shift’:data.shift,‘f-auditor’:data.auditor,‘f-lead’:data.teamLead,</p>
+<p class="p1">‘f-staff’:data.staff,‘f-star’:data.starName,‘f-reason’:data.starReason,</p>
+<p class="p1">‘f-actions’:data.actionsText,‘f-next’:data.nextAudit};</p>
+<p class="p1">Object.keys(map).forEach(function(id){var el=$i(id);if(el&amp;&amp;map[id])el.value=map[id];});</p>
+<p class="p1">if(data.ratings){</p>
+<p class="p1">var gs=document.querySelectorAll(’.rg’);</p>
+<p class="p1">gs.forEach(function(g,i){</p>
+<p class="p1">var r=data.ratings[i]; if(!r||r.sel==null)return;</p>
+<p class="p1">g.dataset.sel=r.sel;</p>
+<p class="p1">var max=parseInt(g.dataset.max)||3;</p>
+<p class="p1">g.querySelectorAll(’.rb’).forEach(function(b,j){</p>
+<p class="p1">var val=j===0?0:Math.round((j/3)*max);</p>
+<p class="p1">b.className=‘rb’+(String(val)===String(r.sel)?’ s’+j:’’);</p>
+<p class="p1">});</p>
+<p class="p1">});</p>
+<p class="p1">}</p>
+<p class="p1">if(data.notes)Object.keys(data.notes).forEach(function(k){var el=$i(‘nt-’+k);if(el)el.value=data.notes[k];});</p>
+<p class="p1">updateScores();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">$i(‘btn-save’).addEventListener(‘click’,function(){</p>
+<p class="p1">if(!configured()){toast(‘Paste your Apps Script URL in the CONFIG first.’);return;}</p>
+<p class="p1">var btn=$i(‘btn-save’); btn.disabled=true; btn.textContent=‘Saving\u2026’;</p>
+<p class="p1">fetch(C.appsScriptURL,{method:‘POST’,body:JSON.stringify({action:‘save’,data:collectData()})})</p>
+<p class="p1">.then(function(r){return r.json();})</p>
+<p class="p1">.then(function(j){if(j.ok){toast(‘Saved to Google Sheets!’);loadSaved();}else toast(‘Save failed: ‘+(j.error||‘Unknown’));})</p>
+<p class="p1">.catch(function(){toast(‘Save failed \u2014 check Apps Script URL.’);})</p>
+<p class="p1">.finally(function(){btn.disabled=false;btn.textContent=’\uD83D\uDCBE Save to Sheets’;});</p>
+<p class="p1">});</p>
+<p class="p2"><br></p>
+<p class="p1">function loadSaved(){</p>
+<p class="p1">if(!configured()){$i(‘sp-list’).innerHTML=’&lt;div class="saved-empty"&gt;Paste your Apps Script URL in CONFIG to enable cloud saves.&lt;/div&gt;’;return;}</p>
+<p class="p1">$i(‘sp-status’).textContent=‘Loading\u2026’;</p>
+<p class="p1">fetch(C.appsScriptURL+’?action=list’)</p>
+<p class="p1">.then(function(r){return r.json();})</p>
+<p class="p1">.then(function(j){</p>
+<p class="p1">$i(‘sp-status’).textContent=’’;</p>
+<p class="p1">if(!j.ok||!j.audits||!j.audits.length){$i(‘sp-list’).innerHTML=’&lt;div class="saved-empty"&gt;No saved audits yet.&lt;/div&gt;’;return;}</p>
+<p class="p1">var vc={‘Excellent’:‘excellent’,‘Good’:‘good’,‘Needs Work’:‘needs-work’,‘Urgent Action’:‘poor’};</p>
+<p class="p1">$i(‘sp-list’).innerHTML=’&lt;div class="svlist"&gt;’+j.audits.map(function(a){</p>
+<p class="p1">var d=new Date(a.savedAt).toLocaleDateString(‘en-GB’,{day:‘2-digit’,month:‘short’,year:‘numeric’});</p>
+<p class="p1">return ‘&lt;div class="svitem"&gt;’+</p>
+<p class="p1">‘&lt;div class="svinfo"&gt;&lt;div class="svtitle"&gt;’+(a.date||‘No date’)+(a.shift?’ \u00b7 ‘+a.shift:’’)+(a.auditor?’ \u00b7 ‘+a.auditor:’’)+’&lt;/div&gt;’+</p>
+<p class="p1">‘&lt;div class="svmeta"&gt;Saved ‘+d+’&lt;/div&gt;&lt;/div&gt;’+</p>
+<p class="p1">‘&lt;span class="vp '+(vc[a.verdict]||'')+'"&gt;’+a.verdict+’&lt;/span&gt;’+</p>
+<p class="p1">‘&lt;div class="svscore"&gt;’+a.totalScore+’/’+a.totalMax+’&lt;/div&gt;’+</p>
+<p class="p1">‘&lt;div class="svbtns"&gt;’+</p>
+<p class="p1">‘&lt;button class=“svbtn load” data-ld='’+JSON.stringify(a).replace(/’/g,”'”)+’'&gt;Load&lt;/button&gt;’+</p>
+<p class="p1">‘&lt;button class="svbtn del" data-did="'+a.id+'"&gt;Delete&lt;/button&gt;’+</p>
+<p class="p1">‘&lt;/div&gt;&lt;/div&gt;’;</p>
+<p class="p1">}).join(’’)+’&lt;/div&gt;’;</p>
+<p class="p1">$i(‘sp-list’).querySelectorAll(’.svbtn.load’).forEach(function(b){</p>
+<p class="p1">b.addEventListener(‘click’,function(){</p>
+<p class="p1">try{applyData(JSON.parse(b.dataset.ld));toast(‘Audit loaded.’);</p>
+<p class="p1">$i(‘sp-body’).classList.remove(‘open’);$i(‘sp-toggle’).textContent=’\u25bc Open’;</p>
+<p class="p1">window.scrollTo({top:0,behavior:‘smooth’});}catch(e){}</p>
+<p class="p1">});</p>
+<p class="p1">});</p>
+<p class="p1">$i(‘sp-list’).querySelectorAll(’.svbtn.del’).forEach(function(b){</p>
+<p class="p1">b.addEventListener(‘click’,function(){</p>
+<p class="p1">var id=b.dataset.did;</p>
+<p class="p1">openPin(function(){</p>
+<p class="p1">fetch(C.appsScriptURL,{method:‘POST’,body:JSON.stringify({action:‘delete’,id:id,pin:C.managerPin})})</p>
+<p class="p1">.then(function(r){return r.json();})</p>
+<p class="p1">.then(function(j){if(j.ok){toast(‘Deleted.’);loadSaved();}else toast(‘Delete failed.’);})</p>
+<p class="p1">.catch(function(){toast(‘Delete failed.’);});</p>
+<p class="p1">});</p>
+<p class="p1">});</p>
+<p class="p1">});</p>
+<p class="p1">})</p>
+<p class="p1">.catch(function(){$i(‘sp-status’).textContent=’’;$i(‘sp-list’).innerHTML=’&lt;div class="saved-empty"&gt;Could not connect to Google Sheets.&lt;/div&gt;’;});</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">$i(‘btn-pdf’).addEventListener(‘click’,function(){</p>
+<p class="p1">var btn=$i(‘btn-pdf’); btn.disabled=true; btn.textContent=‘Generating\u2026’;</p>
+<p class="p1">var fname=C.cafeName.replace(/\s+/g,’-’)+’-Audit-’+($i(‘f-date’).value||‘audit’)+’.pdf’;</p>
+<p class="p1">var hide=[’.actions’,’.panel.ep’,’.email-bar’,’.panel.sp’];</p>
+<p class="p1">var hidden=[];</p>
+<p class="p1">hide.forEach(function(s){var el=document.querySelector(s);if(el){hidden.push({el:el,d:el.style.display});el.style.display=‘none’;}});</p>
+<p class="p1">html2pdf().set({margin:[10,10,10,10],filename:fname,image:{type:‘jpeg’,quality:0.97},</p>
+<p class="p1">html2canvas:{scale:2,useCORS:true},jsPDF:{unit:‘mm’,format:‘a4’,orientation:‘portrait’},</p>
+<p class="p1">pagebreak:{mode:[‘avoid-all’,‘css’,‘legacy’]}}).from(document.querySelector(’.page’)).save()</p>
+<p class="p1">.then(function(){toast(‘PDF saved!’);})</p>
+<p class="p1">.catch(function(){toast(‘PDF failed \u2014 try again.’);})</p>
+<p class="p1">.finally(function(){hidden.forEach(function(h){h.el.style.display=h.d;});btn.disabled=false;btn.textContent=’\u2193 Save as PDF’;});</p>
+<p class="p1">});</p>
+<p class="p2"><br></p>
+<p class="p1">$i(‘btn-email’).addEventListener(‘click’,function(){</p>
+<p class="p1">var email=$i(‘f-email’).value.trim();</p>
+<p class="p1">if(!email){toast(‘Please enter an email address first.’);return;}</p>
+<p class="p1">var date=$i(‘f-date’).value||‘No date’,aud=$i(‘f-auditor’).value||‘Unknown’;</p>
+<p class="p1">var total=$i(‘total-num’).textContent,verd=$i(‘verdict’).textContent;</p>
+<p class="p1">var body=C.cafeName+’ Audit \u2014 ‘+date+’\nAuditor: ‘+aud+’\nScore: ‘+total+’ / ‘+tmax()+’ (’+verd+’)\n\n’;</p>
+<p class="p1">Object.keys(C.sections).forEach(function(k){</p>
+<p class="p1">body+=C.sections[k].title+’: ‘+secScore(k)+’ / ‘+C.sections[k].maxPts+’\n’;</p>
+<p class="p1">var n=$i(‘nt-’+k); if(n&amp;&amp;n.value)body+=‘Notes: ‘+n.value+’\n’; body+=’\n’;</p>
+<p class="p1">});</p>
+<p class="p1">body+=‘Star: ‘+($i(‘f-star’).value||’\u2014’)+’ \u2014 ‘+($i(‘f-reason’).value||’\u2014’)+’\nActions: ‘+($i(‘f-actions’).value||’\u2014’);</p>
+<p class="p1">window.location.href=‘mailto:’+email+’?subject=’+encodeURIComponent(C.cafeName+’ Audit \u2014 ‘+date)+’ &amp;body=’+encodeURIComponent(body);</p>
+<p class="p1">toast(‘Opening email client\u2026’);</p>
+<p class="p1">});</p>
+<p class="p2"><br></p>
+<p class="p1">$i(‘btn-reset’).addEventListener(‘click’,function(){</p>
+<p class="p1">if(!confirm(‘Reset all scores and notes?’))return;</p>
+<p class="p1">document.querySelectorAll(’.rb’).forEach(function(b){b.className=‘rb’;});</p>
+<p class="p1">document.querySelectorAll(’.rg’).forEach(function(g){delete g.dataset.sel;});</p>
+<p class="p1">document.querySelectorAll(‘textarea’).forEach(function(t){t.value=’’;});</p>
+<p class="p1">document.querySelectorAll(‘input[type=text],input[type=date]’).forEach(function(i){</p>
+<p class="p1">if(i.id===‘f-email’)return;</p>
+<p class="p1">if(i.type===‘date’){if(i.id===‘f-date’)i.valueAsDate=new Date(); else i.value=’’;}</p>
+<p class="p1">else i.value=’’;</p>
+<p class="p1">});</p>
+<p class="p1">updateScores(); toast(‘Form reset.’);</p>
+<p class="p1">});</p>
+<p class="p2"><br></p>
+<p class="p1">/* INIT */</p>
+<p class="p1">$i(‘f-date’).valueAsDate=new Date();</p>
+<p class="p1">renderAll();</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
